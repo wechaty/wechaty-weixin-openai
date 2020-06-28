@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-qnamaker",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "QnAMaker.ai Plugin for Wechaty",
   "directories": {
     "doc": "docs",
