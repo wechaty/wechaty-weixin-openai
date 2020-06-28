@@ -5,9 +5,13 @@ import test  from 'tstest'
 import { asker } from './asker'
 
 test('asker()', async t => {
-  const resourceName = 'wechaty'
-  const endpointKey = '705a3468-12bb-4e10-a314-7daa947f18d6'
-  const knowledgeBaseId = '254e33ad-ca6d-405d-980d-dbd3615e2605'
+  const resourceName    = process.env.WECHATY_PLUGIN_QNAMAKER_RESOURCE_NAME
+  const endpointKey     = process.env.WECHATY_PLUGIN_QNAMAKER_ENDPOINT_KEY
+  const knowledgeBaseId = process.env.WECHATY_PLUGIN_QNAMAKER_KNOWLEDGE_BASE_ID
+
+  if (!resourceName || !endpointKey || !knowledgeBaseId) {
+    throw new Error('required env variables not found')
+  }
 
   const ask = asker({
     endpointKey,

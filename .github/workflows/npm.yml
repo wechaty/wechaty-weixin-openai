@@ -23,6 +23,10 @@ jobs:
 
       - name: Test
         run: npm test
+        env:
+          WECHATY_PLUGIN_QNAMAKER_ENDPOINT_KEY: ${{ secrets.WECHATY_PLUGIN_QNAMAKER_ENDPOINT_KEY }}
+          WECHATY_PLUGIN_QNAMAKER_KNOWLEDGE_BASE_ID: ${{ secrets.WECHATY_PLUGIN_QNAMAKER_KNOWLEDGE_BASE_ID }}
+          WECHATY_PLUGIN_QNAMAKER_RESOURCE_NAME: ${{ secrets.WECHATY_PLUGIN_QNAMAKER_RESOURCE_NAME }}
 
   pack:
     name: Pack
