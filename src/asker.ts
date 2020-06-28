@@ -41,8 +41,10 @@ function asker (options: QnAMakerOptions) {
     // console.info(JSON.stringify(requestQuery))
 
     const answers = requestQuery.answers
-    if (answers) {
-      return answers[0].answer
+    if (answers && answers.length > 0) {
+      if (answers[0].score) {
+        return answers[0].answer
+      }
     }
 
   }

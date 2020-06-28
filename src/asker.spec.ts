@@ -15,7 +15,9 @@ test('asker()', async t => {
     resourceName,
   })
 
-  const answer = await ask('wechaty')
-  console.info('answer:', answer)
-  t.true(answer, 'should get answer back')
+  let answer = await ask('wechaty')
+  t.true(answer, 'should get answer back: ' + answer)
+
+  answer = await ask('中文')
+  t.false(answer, 'should get no answer for 中文')
 })
