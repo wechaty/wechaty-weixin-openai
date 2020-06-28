@@ -8,8 +8,9 @@ import {
   matchers,
 }                   from 'wechaty-plugin-contrib'
 
-import { asker }  from './asker'
+import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
+import { atMatcher }        from './at-matcher'
 
 export interface WechatyQnAMakerConfig {
   contact? : matchers.ContactMatcherOptions,
@@ -44,6 +45,8 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     ? () => true
     : matchers.roomMatcher(config.room)
 
+  const matchAt = atMatcher(config.at)
+
   const isPluginMessage = async (message: Message): Promise<boolean> => {
     if (message.self())                       { return false }
     if (message.type() !== Message.Type.Text) { return false }
@@ -64,9 +67,7 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
 
     if (room) {
       if (!await matchRoom(room))           { return false }
-      if (config.at) {
-        if (!await message.mentionSelf())   { return false }
-      }
+      if (!await matchAt(message))          { return false }
     }
 
     return true

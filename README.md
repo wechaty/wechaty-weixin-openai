@@ -25,7 +25,7 @@ import { WechatyQnAMaker } from 'wechaty-plugin-qnamaker'
 const config = {
   contact : true, // enable direct message.
   room    : true,
-  at      : true,
+  at      : true, // default true: require at the bot in room.
   endpointKey     : '705a3468-12bb-4e10-a314-7daa947f18d6',
   knowledgeBaseId : '254e33ad-ca6d-405d-980d-dbd3615e2605',
   resourceName    : 'wechaty',
