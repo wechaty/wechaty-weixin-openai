@@ -71,17 +71,20 @@
     "typescript",
   ],
   "cSpell.words": [
+    "Apim",
     "Automations",
     "Mobihelp",
     "Smee",
     "Twilio",
     "camelcase",
+    "cognitiveservices",
     "deduped",
     "filebox",
     "freshdesk",
     "gcaufy",
     "helpdesk",
     "qnamaker",
+    "quickstart",
     "unirest"
   ],
 
