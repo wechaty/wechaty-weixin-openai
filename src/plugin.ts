@@ -92,7 +92,7 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
         return
       }
 
-      const text = message.text()
+      const text = await message.mentionText()
       if (!text) { return }
 
       const answer = await ask(text)
