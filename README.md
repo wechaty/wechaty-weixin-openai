@@ -15,7 +15,7 @@ Wechaty QnAMaker Plugin can be used to find the most appropriate answer for WeCh
 
 ## Introduction
 
-Wechaty QnAMaker Plugin helps you to answer questions in WeChat with the power of <QnAMaker.ai>.
+Wechaty QnAMaker Plugin helps you to answer questions in WeChat with the power of <https://QnAMaker.ai>.
 
 ## Usage
 
