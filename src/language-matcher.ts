@@ -4,32 +4,32 @@ import {
 
 const languageMonitor = require('language-monitor')
 
-export type LanguageCode =  'chinese'
-                          | 'danish'
-                          | 'norwegian'
-                          | 'japanese'
-                          | 'dutch'
-                          | 'swedish'
-                          | 'cebuano'
-                          | 'tagalog'
-                          | 'german'
-                          | 'indonesian'
-                          | 'turkish'
-                          | 'korean'
-                          | 'portuguese'
-                          | 'azeri'
-                          | 'english'
-                          | 'estonian'
-                          | 'latin'
-                          | 'slovene'
-                          | 'swahili'
-                          | 'hungarian'
-                          | 'spanish'
-                          | 'lithuanian'
-                          | 'finnish'
-                          | 'hawaiian'
-                          | 'icelandic'
-                          | 'italian'
+type LanguageCode = 'chinese'
+                  | 'danish'
+                  | 'norwegian'
+                  | 'japanese'
+                  | 'dutch'
+                  | 'swedish'
+                  | 'cebuano'
+                  | 'tagalog'
+                  | 'german'
+                  | 'indonesian'
+                  | 'turkish'
+                  | 'korean'
+                  | 'portuguese'
+                  | 'azeri'
+                  | 'english'
+                  | 'estonian'
+                  | 'latin'
+                  | 'slovene'
+                  | 'swahili'
+                  | 'hungarian'
+                  | 'spanish'
+                  | 'lithuanian'
+                  | 'finnish'
+                  | 'hawaiian'
+                  | 'icelandic'
+                  | 'italian'
 
 interface GuessedLanguage {
   code: LanguageCode,
@@ -54,12 +54,22 @@ function includeLanguage (
     .includes(language)
 }
 
-function languageMatcher (code: LanguageCode) {
-  log.verbose('WechatyQnAMaker', 'languageMatcher(%s)', code)
+export type LanguageMatcherOptions = LanguageCode | LanguageCode[]
+
+function languageMatcher (options: LanguageMatcherOptions) {
+  log.verbose('WechatyQnAMaker', 'languageMatcher(%s)', JSON.stringify(options))
+
+  let codeList: LanguageCode[]
+
+  if (Array.isArray(options)) {
+    codeList = options
+  } else {
+    codeList = [ options ]
+  }
 
   return function matchLanguage (text: string) {
     const resultList = detectLanguage(text)
-    return includeLanguage(resultList, code)
+    return codeList.some(code => includeLanguage(resultList, code))
   }
 
 }

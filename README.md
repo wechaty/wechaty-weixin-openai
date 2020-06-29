@@ -23,12 +23,14 @@ Wechaty QnAMaker Plugin helps you to answer questions in WeChat with the power o
 import { WechatyQnAMaker } from 'wechaty-plugin-qnamaker'
 
 const config = {
-  contact : true, // enable direct message.
-  room    : true,
-  at      : true, // default true: require at the bot in room.
-  endpointKey     : '705a3468-12bb-4e10-a314-7daa947f18d6',
-  knowledgeBaseId : '254e33ad-ca6d-405d-980d-dbd3615e2605',
-  resourceName    : 'wechaty',
+  at: true, // default true: require at the bot in room.
+  room: true,
+  contact: true, // enable direct message.
+  language: undefined,  // not set or undefined to match all languages.
+
+  endpointKey: '705a3468-12bb-4e10-a314-7daa947f18d6',
+  knowledgeBaseId: '254e33ad-ca6d-405d-980d-dbd3615e2605',
+  resourceName: 'wechaty',
 }
 
 const QnAMakerPlugin = WechatyQnAMaker(config)
@@ -39,6 +41,7 @@ wechaty.use(QnAMakerPlugin)
 
 1. `config.contact`: Whether to allow direct message to be sync with ticket reply. `false` to deny all, `true` for allow all; Supports contact id(`string`) and contact name(`RegExp`). You can also mix them in array.
 1. `config.room`: The room id of your service WeChat room.
+1. `config.language`: If set to a language, then the plugin will only reply message text in that specified language. (default: match all languages)
 1. `endpointKey`: Endpoint Key for QnAMaker.ai
 1. `knowledgeBaseId`: Knowledge Base ID for your knowledge base (KB)
 1. `resourceName`: Resource Name for your Cognitive Service. (for example, `wechaty` is the Resource Name for `https://wechaty.azurewebsites.net`)
