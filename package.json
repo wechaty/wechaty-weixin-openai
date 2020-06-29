@@ -10,6 +10,7 @@
   "dependencies": {
     "@azure/cognitiveservices-qnamaker-runtime": "^1.0.0",
     "@azure/ms-rest-js": "^2.0.7",
+    "language-monitor": "^1.0.3",
     "wechaty-plugin-contrib": "^0.11.8"
   },
   "devDependencies": {

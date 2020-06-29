@@ -11,11 +11,16 @@ import {
 import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
+import {
+  languageMatcher,
+  LanguageCode,
+}                           from './language-matcher'
 
 export interface WechatyQnAMakerConfig {
   contact? : matchers.ContactMatcherOptions,
   room?    : matchers.RoomMatcherOptions,
   at?      : boolean,
+  language? : LanguageCode,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
@@ -45,7 +50,13 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     ? () => true
     : matchers.roomMatcher(config.room)
 
-  const matchAt = atMatcher(config.at)
+  const matchAt = (typeof config.at === 'undefined')
+    ? atMatcher(true) // default: true
+    : atMatcher(config.at)
+
+  const matchLanguage = (typeof config.language === 'undefined')
+    ? () => true  // match all language by default
+    : languageMatcher(config.language)
 
   const isPluginMessage = async (message: Message): Promise<boolean> => {
     if (message.self())                       { return false }
@@ -69,6 +80,9 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
       if (!await matchRoom(room))           { return false }
       if (!await matchAt(message))          { return false }
     }
+
+    const text = await message.mentionText()
+    if (!matchLanguage(text))                { return false }
 
     return true
   }
