@@ -13,10 +13,11 @@ import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
 
 export interface WechatyQnAMakerConfig {
-  contact?  : matchers.ContactMatcherOptions,
-  room?     : matchers.RoomMatcherOptions,
-  at?       : boolean,
-  language? : matchers.LanguageMatcherOptions,
+  contact?     : matchers.ContactMatcherOptions,
+  room?        : matchers.RoomMatcherOptions,
+  at?          : boolean,
+  language?    : matchers.LanguageMatcherOptions,
+  skipMessage? : matchers.MessageMatcherOptions,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
@@ -46,6 +47,10 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     ? () => true
     : matchers.roomMatcher(config.room)
 
+  const matchSkipMessage = typeof config.skipMessage === 'undefined'
+    ? () => false // default not skip any messages
+    : matchers.messageMatcher(config.skipMessage)
+
   const matchAt = (typeof config.at === 'undefined')
     ? atMatcher(true) // default: true
     : atMatcher(config.at)
@@ -69,6 +74,8 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
   const isConfigMessage = async (message: Message): Promise<boolean> => {
     const from = message.from()
     const room = message.room()
+
+    if (await matchSkipMessage(message))    { return false }
 
     if (from && !await matchContact(from))  { return false }
 
