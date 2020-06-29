@@ -48,12 +48,16 @@ function asker (options: QnAMakerOptions) {
     // console.info(JSON.stringify(requestQuery))
 
     const answers = requestQuery.answers
+
     if (answers && answers.length > 0) {
-      const score = answers[0].score
-      log.verbose('WechatyQnAMaker', 'ask() answer.score=%s', score)
+
+      const answer = answers[0].answer
+      const score  = answers[0].score
+
+      log.verbose('WechatyQnAMaker', 'ask(%s) score=%s for answer %s', question, score, answer)
 
       if (score && score > options.minScore) {
-        return answers[0].answer
+        return answer
       }
     }
 
