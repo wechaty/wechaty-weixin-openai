@@ -12,7 +12,7 @@ import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
 
-const DEFAULT_MIN_SCORE = 50
+const DEFAULT_MIN_SCORE = 70
 
 export interface WechatyQnAMakerConfig {
   contact?     : matchers.ContactMatcherOptions,
