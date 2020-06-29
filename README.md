@@ -41,7 +41,7 @@ wechaty.use(QnAMakerPlugin)
 
 1. `config.contact`: Whether to allow direct message to be sync with ticket reply. `false` to deny all, `true` for allow all; Supports contact id(`string`) and contact name(`RegExp`). You can also mix them in array.
 1. `config.room`: The room id of your service WeChat room.
-1. `config.language`: If set to a language, then the plugin will only reply message text in that specified language. (default: match all languages)
+1. `config.language`: If set to a language ('chinese', 'english', etc), then the plugin will only reply message text in that specified language. (default: match all languages)
 1. `endpointKey`: Endpoint Key for QnAMaker.ai
 1. `knowledgeBaseId`: Knowledge Base ID for your knowledge base (KB)
 1. `resourceName`: Resource Name for your Cognitive Service. (for example, `wechaty` is the Resource Name for `https://wechaty.azurewebsites.net`)
@@ -76,6 +76,7 @@ You can read the source code from: <https://github.com/wechaty/friday/blob/maste
 
 1. Init code base
 1. QnAMaker integration
+1. Add Language Detecter to limit the plugin to only answer a specific language(s)
 
 ## Contributors
 

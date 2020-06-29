@@ -13,14 +13,14 @@ import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
 import {
   languageMatcher,
-  LanguageCode,
+  LanguageMatcherOptions,
 }                           from './language-matcher'
 
 export interface WechatyQnAMakerConfig {
   contact? : matchers.ContactMatcherOptions,
   room?    : matchers.RoomMatcherOptions,
   at?      : boolean,
-  language? : LanguageCode,
+  language? : LanguageMatcherOptions,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
