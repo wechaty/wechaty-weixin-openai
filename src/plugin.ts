@@ -12,12 +12,15 @@ import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
 
+const DEFAULT_MIN_SCORE = 50
+
 export interface WechatyQnAMakerConfig {
   contact?     : matchers.ContactMatcherOptions,
   room?        : matchers.RoomMatcherOptions,
   at?          : boolean,
   language?    : matchers.LanguageMatcherOptions,
   skipMessage? : matchers.MessageMatcherOptions,
+  minScore?: number,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
@@ -33,9 +36,12 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     resourceName,
   }                   = normalizeConfig(config)
 
+  const minScore = config.minScore ?? DEFAULT_MIN_SCORE
+
   const ask = asker({
     endpointKey,
     knowledgeBaseId,
+    minScore,
     resourceName,
   })
 
