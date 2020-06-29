@@ -11,16 +11,12 @@ import {
 import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
-import {
-  languageMatcher,
-  LanguageMatcherOptions,
-}                           from './language-matcher'
 
 export interface WechatyQnAMakerConfig {
-  contact? : matchers.ContactMatcherOptions,
-  room?    : matchers.RoomMatcherOptions,
-  at?      : boolean,
-  language? : LanguageMatcherOptions,
+  contact?  : matchers.ContactMatcherOptions,
+  room?     : matchers.RoomMatcherOptions,
+  at?       : boolean,
+  language? : matchers.LanguageMatcherOptions,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
@@ -56,7 +52,7 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
 
   const matchLanguage = (typeof config.language === 'undefined')
     ? () => true  // match all language by default
-    : languageMatcher(config.language)
+    : matchers.languageMatcher(config.language)
 
   const isPluginMessage = async (message: Message): Promise<boolean> => {
     if (message.self())                       { return false }
