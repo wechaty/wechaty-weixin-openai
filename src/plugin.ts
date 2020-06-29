@@ -82,6 +82,13 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     if (room) {
       if (!await matchRoom(room))           { return false }
       if (!await matchAt(message))          { return false }
+
+      /**
+       * Mention others but not include the bot
+       */
+      const mentionList = await message.mentionList()
+      const mentionSelf = await message.mentionSelf()
+      if (mentionList.length > 0 && !mentionSelf) { return false }
     }
 
     const text = await message.mentionText()
