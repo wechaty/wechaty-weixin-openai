@@ -19,6 +19,14 @@ Wechaty QnAMaker Plugin helps you to answer questions in WeChat with the power o
 
 ![QnAMaker for Wechaty Community Knowledge Base](docs/images/qnamaker-screenshot.png)
 
+## Requirements
+
+1. Node.js v12+
+1. Wechaty v0.40+
+1. This QnAMaker Plugin
+1. Azure Subscription for Congnitive Service
+1. QnAMaker Knowledge Base (KB)
+
 ## Usage
 
 ```ts
