@@ -108,6 +108,6 @@ Microsoft Regional Director & AI MVP, \<zixia@zixia.net\>
 
 ## Copyright & License
 
-* Code & Docs © 2020 Huan LI \<zixia@zixia.net\>
-* Code released under the Apache-2.0 License
-* Docs released under Creative Commons
+- Code & Docs © 2020 Huan LI \<zixia@zixia.net\>
+- Code released under the Apache-2.0 License
+- Docs released under Creative Commons
