@@ -94,7 +94,10 @@ The following two environment variables will be used if the required information
 
 Our Friday BOT are using `wechaty-plugin-qnamaker` to connect our WeChat conversations with QnAMaker.
 
-You can read the source code from: <https://github.com/wechaty/friday/blob/master/src/plugins/qnamaker.ts>
+1. Source Code - You can read the source code from: <https://github.com/wechaty/friday/blob/master/src/plugins/qnamaker.ts>
+1. Spreadsheets - You can read our Question & Answer Pairs for Wechaty Community from: <https://docs.google.com/spreadsheets/d/14o7ytbZDRyX53nn8F4VohBgzAP6pMnCRPWFFzdcyzxc/edit>
+
+> Note: our question & answer pairs sheet are open to edit. Please feel free to add question & answer pair if you believe it's necessary, and thank you for your contribution!
 
 ## Resources
 
