@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-qnamaker",
-  "version": "0.2.12",
+  "version": "0.2.16",
   "description": "QnAMaker.ai Plugin for Wechaty",
   "directories": {
     "doc": "docs",
@@ -14,7 +14,7 @@
     "wechaty-plugin-contrib": "^0.11.10"
   },
   "devDependencies": {
-    "@chatie/eslint-config": "^0.8.1",
+    "@chatie/eslint-config": "^0.11.4",
     "@chatie/git-scripts": "^0.6.2",
     "@chatie/semver": "^0.4.7",
     "@chatie/tsconfig": "^0.10.1",

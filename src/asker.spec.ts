@@ -13,7 +13,10 @@ test('asker()', async t => {
   // const knowledgeBaseId = process.env.WECHATY_PLUGIN_QNAMAKER_KNOWLEDGE_BASE_ID
 
   const config = normalizeConfig({})
-  const ask = asker(config)
+  const ask = asker({
+    ...config,
+    minScore: 50,
+  })
 
   let answer = await ask('wechaty')
   t.true(answer, 'should get answer back: ' + answer)

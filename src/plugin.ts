@@ -12,12 +12,15 @@ import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
 
+const DEFAULT_MIN_SCORE = 70
+
 export interface WechatyQnAMakerConfig {
   contact?     : matchers.ContactMatcherOptions,
   room?        : matchers.RoomMatcherOptions,
   at?          : boolean,
   language?    : matchers.LanguageMatcherOptions,
   skipMessage? : matchers.MessageMatcherOptions,
+  minScore?: number,
 
   endpointKey?     : string,
   knowledgeBaseId? : string,
@@ -33,9 +36,12 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     resourceName,
   }                   = normalizeConfig(config)
 
+  const minScore = config.minScore ?? DEFAULT_MIN_SCORE
+
   const ask = asker({
     endpointKey,
     knowledgeBaseId,
+    minScore,
     resourceName,
   })
 
@@ -82,6 +88,13 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     if (room) {
       if (!await matchRoom(room))           { return false }
       if (!await matchAt(message))          { return false }
+
+      /**
+       * Mention others but not include the bot
+       */
+      const mentionList = await message.mentionList()
+      const mentionSelf = await message.mentionSelf()
+      if (mentionList.length > 0 && !mentionSelf) { return false }
     }
 
     const text = await message.mentionText()

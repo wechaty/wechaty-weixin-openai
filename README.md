@@ -28,7 +28,7 @@ const config = {
   at: true, // default true: require at the bot in room.
   room: true,
   contact: true, // enable direct message.
-
+  minScore: 50,   // minimum score for the answer
   endpointKey: '705a3468-12bb-4e10-a314-7daa947f18d6',
   knowledgeBaseId: '254e33ad-ca6d-405d-980d-dbd3615e2605',
   resourceName: 'wechaty',
@@ -52,6 +52,7 @@ wechaty.use(QnAMakerPlugin)
 1. `config.room`: The room id of your service WeChat room.
 1. `config.language`: If set to a language ('chinese', 'english', etc), then the plugin will only reply message text in that specified language. (default: match all languages)
 1. `config.skipMessage`: If set it to `string` or `RegExp`, then the message text that match the config will not be processed by the plugin. Array supported.
+1. `config.minScore`: If the answer from QnAMaker.ai service has a score below the `minScore`, then that answer will not be used. (A perfect score is `100`)
 
 ## Environment Variables
 
@@ -74,6 +75,10 @@ The following two environment variables will be used if the required information
 Our Friday BOT are using `wechaty-plugin-qnamaker` to connect our WeChat conversations with QnAMaker.
 
 You can read the source code from: <https://github.com/wechaty/friday/blob/master/src/plugins/qnamaker.ts>
+
+## Resources
+
+- [Quickstart: Test knowledge base with batch questions and expected answers](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/batch-testing)
 
 ## History
 
@@ -105,6 +110,6 @@ Microsoft Regional Director & AI MVP, \<zixia@zixia.net\>
 
 ## Copyright & License
 
-* Code & Docs © 2020 Huan LI \<zixia@zixia.net\>
-* Code released under the Apache-2.0 License
-* Docs released under Creative Commons
+- Code & Docs © 2020 Huan LI \<zixia@zixia.net\>
+- Code released under the Apache-2.0 License
+- Docs released under Creative Commons

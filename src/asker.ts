@@ -8,13 +8,18 @@
 import * as msRest from '@azure/ms-rest-js'
 import * as runtime from '@azure/cognitiveservices-qnamaker-runtime'
 
+import { log } from 'wechaty'
+
 interface QnAMakerOptions {
   endpointKey     : string,
   knowledgeBaseId : string,
   resourceName    : string,
+  minScore        : number,
 }
 
 function asker (options: QnAMakerOptions) {
+  log.verbose('WechatyQnAMaker', 'asker(%s)', JSON.stringify(options))
+
   const customHeaders = { Authorization: `EndpointKey ${options.endpointKey}` }
 
   const queryingURL = `https://${options.resourceName}.azurewebsites.net`
@@ -24,6 +29,8 @@ function asker (options: QnAMakerOptions) {
   const runtimeClient = new runtime.QnAMakerRuntimeClient(queryRuntimeCredentials, queryingURL)
 
   return async function ask (question: string): Promise<void | string> {
+    log.verbose('WechatyQnAMaker', 'ask(%s)', question)
+
     const requestQuery = await runtimeClient.runtime.generateAnswer(
       options.knowledgeBaseId,
       {
@@ -41,9 +48,16 @@ function asker (options: QnAMakerOptions) {
     // console.info(JSON.stringify(requestQuery))
 
     const answers = requestQuery.answers
+
     if (answers && answers.length > 0) {
-      if (answers[0].score) {
-        return answers[0].answer
+
+      const answer = answers[0].answer
+      const score  = answers[0].score
+
+      log.verbose('WechatyQnAMaker', 'ask(%s) score=%s for answer %s', question, score, answer)
+
+      if (score && score > options.minScore) {
+        return answer
       }
     }
 
