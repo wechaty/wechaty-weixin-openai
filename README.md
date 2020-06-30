@@ -36,7 +36,16 @@ const config = {
   at: true, // default true: require at the bot in room.
   room: true,
   contact: true, // enable direct message.
+
+  /**
+   * Language of Questions & Score of Answers
+   */
+  language: 'english'
   minScore: 50,   // minimum score for the answer
+
+  /**
+   * QnAMaker Service API
+   */
   endpointKey: '705a3468-12bb-4e10-a314-7daa947f18d6',
   knowledgeBaseId: '254e33ad-ca6d-405d-980d-dbd3615e2605',
   resourceName: 'wechaty',
@@ -54,13 +63,16 @@ wechaty.use(QnAMakerPlugin)
 1. `knowledgeBaseId`: Knowledge Base ID for your knowledge base (KB)
 1. `resourceName`: Resource Name for your Cognitive Service. (for example, `wechaty` is the Resource Name for `https://wechaty.azurewebsites.net`)
 
-### 2 Other Settings
+### 2 Language of Questions & Score of Answers
+
+1. `config.language`: If set to a language ('chinese', 'english', etc), then the plugin will only reply message text in that specified language. (default: match all languages)
+1. `config.minScore`: If the answer from QnAMaker.ai service has a score below the `minScore`, then that answer will not be used. (A perfect score is `100`)
+
+### 3 Matchers & Skipper
 
 1. `config.contact`: Whether to allow direct message to be sync with ticket reply. `false` to deny all, `true` for allow all; Supports contact id(`string`) and contact name(`RegExp`). You can also mix them in array.
 1. `config.room`: The room id of your service WeChat room.
-1. `config.language`: If set to a language ('chinese', 'english', etc), then the plugin will only reply message text in that specified language. (default: match all languages)
 1. `config.skipMessage`: If set it to `string` or `RegExp`, then the message text that match the config will not be processed by the plugin. Array supported.
-1. `config.minScore`: If the answer from QnAMaker.ai service has a score below the `minScore`, then that answer will not be used. (A perfect score is `100`)
 
 ## Environment Variables
 
