@@ -74,6 +74,10 @@ Our Friday BOT are using `wechaty-plugin-qnamaker` to connect our WeChat convers
 
 You can read the source code from: <https://github.com/wechaty/friday/blob/master/src/plugins/qnamaker.ts>
 
+## Resources
+
+- [Quickstart: Test knowledge base with batch questions and expected answers](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/batch-testing)
+
 ## History
 
 ### master
