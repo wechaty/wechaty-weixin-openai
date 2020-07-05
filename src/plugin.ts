@@ -81,20 +81,20 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     const from = message.from()
     const room = message.room()
 
-    if (await matchSkipMessage(message))    { return false }
-
-    if (from && !await matchContact(from))  { return false }
+    if (await matchSkipMessage(message))                  { return false }
 
     if (room) {
-      if (!await matchRoom(room))           { return false }
-      if (!await matchAt(message))          { return false }
+      if (!await matchRoom(room))                         { return false }
+      if (!await matchAt(message))                        { return false }
 
       /**
        * Mention others but not include the bot
        */
       const mentionList = await message.mentionList()
       const mentionSelf = await message.mentionSelf()
-      if (mentionList.length > 0 && !mentionSelf) { return false }
+      if (mentionList.length > 0 && !mentionSelf)         { return false }
+    } else {
+      if (from && !await matchContact(from))              { return false }
     }
 
     const text = await message.mentionText()
