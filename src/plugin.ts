@@ -98,7 +98,7 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
     }
 
     const text = await message.mentionText()
-    if (!matchLanguage(text))                { return false }
+    if (!matchLanguage(text))                             { return false }
 
     return true
   }
