@@ -40,7 +40,7 @@ const config = {
   /**
    * Language of Questions & Score of Answers
    */
-  language: 'english'
+  language: 'english',
   minScore: 50,   // minimum score for the answer
 
   /**
