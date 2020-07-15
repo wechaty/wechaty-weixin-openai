@@ -23,7 +23,7 @@ export interface WechatyWeixinOpenAIConfig {
    */
   contact?         : matchers.ContactMatcherOptions,
   room?            : matchers.RoomMatcherOptions,
-  at?              : boolean,
+  mention?         : boolean,
   language?        : matchers.LanguageMatcherOptions,
   skipMessage?     : matchers.MessageMatcherOptions,
   minScore?        : number,
@@ -70,9 +70,9 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
     ? () => false // default not skip any messages
     : matchers.messageMatcher(config.skipMessage)
 
-  const matchAt = (typeof config.at === 'undefined')
+  const matchMention = (typeof config.mention === 'undefined')
     ? atMatcher(true) // default: true
-    : atMatcher(config.at)
+    : atMatcher(config.mention)
 
   const matchLanguage = (typeof config.language === 'undefined')
     ? () => true  // match all language by default
@@ -98,7 +98,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
 
     if (room) {
       if (!await matchRoom(room))                         { return false }
-      if (!await matchAt(message))                        { return false }
+      if (!await matchMention(message))                   { return false }
 
       /**
        * Mention others but not include the bot
