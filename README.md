@@ -45,7 +45,7 @@ const config = {
   /**
    * No answer from Weixin OpenAI will call the below callback function
    */
-  noAnswerCallback: (message: Message) => { console.log(`No Answer Message: ${message}`) }
+  noAnswerHook: (message: Message) => { console.log(`No Answer Message: ${message}`) }
 }
 
 const WeixinOpenAIPlugin = WechatyWeixinOpenAI(config)
@@ -68,6 +68,11 @@ wechaty.use(WeixinOpenAIPlugin)
 1. `config.contact`: Whether to allow direct message to be sync with ticket reply. `false` to deny all, `true` for allow all; Supports contact id(`string`) and contact name(`RegExp`). You can also mix them in array.
 1. `config.room`: The room id of your service WeChat room.
 1. `config.skipMessage`: If set it to `string` or `RegExp`, then the message text that match the config will not be processed by the plugin. Array supported.
+
+### 4 Hook functions
+
+1. `config.noAnswerHook`: This is an optional argument, if this function is defined, when Weixin OpenAI returns an answer that actually matched nothing, this function will be called, which allows you to do other logic when the Weixin OpenAI bot can not answer the question automatically for you, such as push your own contact card or create a room with the bot and you together.
+1. `config.preAnswerHook`: This hook function is called before the real answer action is taken. In this hook function, you can get the message and the answer returned from Weixin OpenAI. You can add your own logic to determine whether this message should be answered by Weixin OpenAI automatically or not. Returning `false` in the hook function will prevent further code to be executed.
 
 ## Environment Variables
 
@@ -93,6 +98,8 @@ The following two environment variables will be used if the required information
 1. Add `noAnswer
 
 ## Contributors
+
+[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/0)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/0)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/1)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/1)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/2)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/2)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/3)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/3)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/4)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/4)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/5)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/5)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/6)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/6)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/7)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/7)
 
 ## Author
 

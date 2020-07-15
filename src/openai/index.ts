@@ -4,8 +4,8 @@ import { log }    from 'wechaty'
 
 import { AI_BOT_URL }     from './const'
 import {
-  ChatRequestBody,
-  ChatRequestResponse,
+  AIBotRequestBody,
+  AIBotRequestResponse,
   ANSWER_STATUS,
 }                         from './schema/aibot'
 
@@ -59,12 +59,12 @@ class WeixinOpenAI {
   public async aiBot (query: string, userId: string) {
     const originalUrl = AI_BOT_URL
     const signature = this.encodeJwt({ userid: userId })
-    const data: ChatRequestBody = {
+    const data: AIBotRequestBody = {
       query,
       signature,
     }
     const result = await this.request(originalUrl, data)
-    return result as ChatRequestResponse
+    return result as AIBotRequestResponse
   }
 
   private async request (
@@ -91,6 +91,6 @@ class WeixinOpenAI {
 export {
   WeixinOpenAI,
   ANSWER_STATUS,
-  ChatRequestBody,
-  ChatRequestResponse,
+  AIBotRequestBody,
+  AIBotRequestResponse,
 }

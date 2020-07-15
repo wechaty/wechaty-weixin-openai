@@ -11,12 +11,16 @@ import { atMatcher }        from './at-matcher'
 import {
   WeixinOpenAI,
   ANSWER_STATUS,
+  AIBotRequestResponse,
 }                           from './openai'
 
 const DEFAULT_MIN_SCORE = 70
 const PRE = 'WechatyWeixinOpenAI'
 
 export interface WechatyWeixinOpenAIConfig {
+  /**
+   * Effective scope related arguments
+   */
   contact?         : matchers.ContactMatcherOptions,
   room?            : matchers.RoomMatcherOptions,
   at?              : boolean,
@@ -24,11 +28,23 @@ export interface WechatyWeixinOpenAIConfig {
   skipMessage?     : matchers.MessageMatcherOptions,
   minScore?        : number,
 
+  /**
+   * Authentication related arguments
+   */
   token?           : string,
   encodingAESKey?  : string,
 
+  /**
+   * Chatbot related arguments. Not implemented yet.
+   * TODO: implement the argument logic below
+   */
   includeNlpResult?: boolean,
-  noAnswerCallback?: (message: Message) => Promise<void>,
+
+  /**
+   * Hook functions below allows you to interfere with the conversation with your own logic
+   */
+  noAnswerHook?    : (message: Message) => Promise<void>,
+  preAnswerHook?   : (message: Message, answer: AIBotRequestResponse) => Promise<boolean | undefined>,
 }
 
 function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin {
@@ -38,7 +54,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
 
   const minScore = config.minScore ?? DEFAULT_MIN_SCORE
   log.verbose(PRE, `minScore: ${minScore}`)
-  const { noAnswerCallback } = config
+  const { noAnswerHook } = config
 
   WeixinOpenAI.init(token, encodingAESKey)
 
@@ -126,16 +142,25 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
       const room = message.room()
 
       const answer = await WeixinOpenAI.Instance.aiBot(text, from.id)
-      if (answer.status === ANSWER_STATUS.NOMATCH && noAnswerCallback) {
-        await noAnswerCallback(message)
+
+      /**
+       * PreAnswerHook logic, if the hook return false, will skip further process of the message
+       */
+      if (typeof config.preAnswerHook === 'function') {
+        const shouldProceed = await config.preAnswerHook(message, answer)
+        if (typeof shouldProceed === 'boolean' && !shouldProceed) {
+          return
+        }
+      }
+
+      if (answer.status === ANSWER_STATUS.NOMATCH && noAnswerHook) {
+        await noAnswerHook(message)
         return
       }
       const msg = answer.msg
       const correctMessage = msg[0]
 
       const reply = correctMessage.content.replace(/LINE_BREAK/g, '\n')
-
-      log.info(reply)
 
       if (from && room && await message.mentionSelf()) {
         await room.say(reply, from)

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-export interface ChatRequestBody {
+export interface AIBotRequestBody {
   signature: string,
   query: string,
 }
@@ -30,7 +30,7 @@ export interface Msg {
   take_options_only: boolean;
 }
 
-export interface ChatRequestResponse {
+export interface AIBotRequestResponse {
   ans_node_id: number;
   ans_node_name: string;
   answer: string;

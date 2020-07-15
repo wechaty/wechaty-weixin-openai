@@ -3,3 +3,7 @@ export {
   WechatyWeixinOpenAI,
   WechatyWeixinOpenAIConfig,
 }                           from './plugin'
+
+export {
+  AIBotRequestResponse,
+}                           from './openai'
