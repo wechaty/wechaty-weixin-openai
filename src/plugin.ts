@@ -44,7 +44,7 @@ export interface WechatyWeixinOpenAIConfig {
    * Hook functions below allows you to interfere with the conversation with your own logic
    */
   noAnswerHook?    : (message: Message) => Promise<void>,
-  preAnswerHook?   : (message: Message, answer: AIBotRequestResponse) => Promise<boolean | undefined>,
+  preAnswerHook?   : (message: Message, answer: AIBotRequestResponse) => Promise<boolean | void>,
 }
 
 function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin {
