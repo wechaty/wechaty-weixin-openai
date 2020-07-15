@@ -32,7 +32,7 @@ import { Message, Wechaty } from 'wechaty'
 import { WechatyWeixinOpenAI } from 'wechaty-weixin-openai'
 
 const config = {
-  at: true, // default true: require at the bot in room.
+  mention: true, // default true: require at the bot in room.
   room: true,
   contact: true, // enable direct message.
 
