@@ -7,6 +7,8 @@
 
 Wechaty Weixin OpenAI plugin enables your bot with Weixin OpenAI skills
 
+![Wechaty Plugin Weixin OpenAI](docs/images/wechaty-weixin-openai.png)
+
 [![Wechaty Plugin Weixin OpenAI](https://img.shields.io/badge/Wechaty%20Plugin-OpenAI-brightgreen)](https://github.com/wechaty/wechaty-weixin-openai)
 [![Powered by Wechaty](https://img.shields.io/badge/Powered%20By-Wechaty-brightgreen.svg)](https://github.com/Wechaty/wechaty)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
