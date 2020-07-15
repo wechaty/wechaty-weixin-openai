@@ -99,7 +99,14 @@ The following two environment variables will be used if the required information
 
 ## Contributors
 
-[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/0)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/0)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/1)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/1)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/2)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/2)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/3)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/3)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/4)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/4)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/5)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/5)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/6)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/6)[![](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/7)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/7)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/0)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/0)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/1)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/1)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/2)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/2)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/3)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/3)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/4)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/4)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/5)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/5)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/6)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/6)
+[![contributor](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/images/7)](https://sourcerer.io/fame/windmemory/wechaty/wechaty-weixin-openai/links/7)
 
 ## Author
 
