@@ -1,16 +1,16 @@
 {
-  "name": "wechaty-plugin-qnamaker",
-  "version": "0.2.20",
-  "description": "QnAMaker.ai Plugin for Wechaty",
+  "name": "wechaty-weixin-openai",
+  "version": "0.2.0",
+  "description": "Weixin OpenAI Plugin for Wechaty",
   "directories": {
     "doc": "docs",
     "example": "examples",
     "test": "tests"
   },
   "dependencies": {
-    "@azure/cognitiveservices-qnamaker-runtime": "^1.0.0",
-    "@azure/ms-rest-js": "^2.0.7",
-    "language-monitor": "^1.0.3",
+    "@types/node": "^14.0.23",
+    "axios": "^0.19.2",
+    "jsonwebtoken": "^8.5.1",
     "wechaty-plugin-contrib": "^0.11.10"
   },
   "devDependencies": {
@@ -18,8 +18,7 @@
     "@chatie/git-scripts": "^0.6.2",
     "@chatie/semver": "^0.4.7",
     "@chatie/tsconfig": "^0.10.1",
-    "@types/body-parser": "^1.19.0",
-    "@types/express": "^4.17.6",
+    "@types/jsonwebtoken": "^8.5.0",
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
     "tstest": "^0.4.10",

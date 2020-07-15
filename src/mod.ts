@@ -1,5 +1,5 @@
 export { VERSION } from './version'
 export {
-  WechatyQnAMaker,
-  WechatyQnAMakerConfig,
+  WechatyWeixinOpenAI,
+  WechatyWeixinOpenAIConfig,
 }                           from './plugin'

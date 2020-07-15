@@ -4,46 +4,43 @@ import {
   log,
   Message,
 }                   from 'wechaty'
-import {
-  matchers,
-}                   from 'wechaty-plugin-contrib'
+import { matchers } from 'wechaty-plugin-contrib'
 
-import { asker }            from './asker'
 import { normalizeConfig }  from './normalize-config'
 import { atMatcher }        from './at-matcher'
+import {
+  WeixinOpenAI,
+  ANSWER_STATUS,
+}                           from './openai'
 
 const DEFAULT_MIN_SCORE = 70
+const PRE = 'WechatyWeixinOpenAI'
 
-export interface WechatyQnAMakerConfig {
-  contact?     : matchers.ContactMatcherOptions,
-  room?        : matchers.RoomMatcherOptions,
-  at?          : boolean,
-  language?    : matchers.LanguageMatcherOptions,
-  skipMessage? : matchers.MessageMatcherOptions,
-  minScore?: number,
+export interface WechatyWeixinOpenAIConfig {
+  contact?         : matchers.ContactMatcherOptions,
+  room?            : matchers.RoomMatcherOptions,
+  at?              : boolean,
+  language?        : matchers.LanguageMatcherOptions,
+  skipMessage?     : matchers.MessageMatcherOptions,
+  minScore?        : number,
 
-  endpointKey?     : string,
-  knowledgeBaseId? : string,
-  resourceName?    : string,
+  token?           : string,
+  encodingAESKey?  : string,
+
+  includeNlpResult?: boolean,
+  noAnswerCallback?: (message: Message) => Promise<void>,
 }
 
-function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
-  log.verbose('WechatyQnAMaker', 'WechatyQnAMaker(%s)', JSON.stringify(config))
+function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin {
+  log.verbose(PRE, 'WechatyWeixinOpenAI()')
 
-  const {
-    endpointKey,
-    knowledgeBaseId,
-    resourceName,
-  }                   = normalizeConfig(config)
+  const { token, encodingAESKey } = normalizeConfig(config)
 
   const minScore = config.minScore ?? DEFAULT_MIN_SCORE
+  log.verbose(PRE, `minScore: ${minScore}`)
+  const { noAnswerCallback } = config
 
-  const ask = asker({
-    endpointKey,
-    knowledgeBaseId,
-    minScore,
-    resourceName,
-  })
+  WeixinOpenAI.init(token, encodingAESKey)
 
   const matchContact = typeof config.contact === 'undefined'
     ? () => true
@@ -106,35 +103,44 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
   /**
    * Connect with Wechaty
    */
-  return function WechatyQnAMakerPlugin (wechaty: Wechaty) {
-    log.verbose('WechatyQnAMaker', 'WechatyQnAMakerPlugin(%s)', wechaty)
+  return function WechatyWeixinOpenAIPlugin (wechaty: Wechaty) {
+    log.verbose(PRE, 'WechatyWeixinOpenAIPlugin(%s)', wechaty)
 
     wechaty.on('message', async message => {
-      log.verbose('WechatyQnAMaker', 'WechatyQnAMakerPlugin() wechaty.on(message) %s', message)
+      log.verbose(PRE, 'WechatyWeixinOpenAIPlugin() wechaty.on(message) %s', message)
 
       if (!await isPluginMessage(message)) {
-        log.silly('WechatyQnAMaker', 'WechatyQnAMakerPlugin() wechaty.on(message) message not match this plugin, skipped.')
+        log.silly(PRE, 'WechatyWeixinOpenAIPlugin() wechaty.on(message) message not match this plugin, skipped.')
         return
       }
 
       if (!await isConfigMessage(message)) {
-        log.silly('WechatyQnAMaker', 'WechatyQnAMakerPlugin() wechaty.on(message) message not match config, skipped.')
+        log.silly(PRE, 'WechatyWeixinOpenAIPlugin() wechaty.on(message) message not match config, skipped.')
         return
       }
 
       const text = await message.mentionText()
       if (!text) { return }
 
-      const answer = await ask(text)
-      if (!answer) { return }
-
       const from = message.from()
       const room = message.room()
 
+      const answer = await WeixinOpenAI.Instance.aiBot(text, from.id)
+      if (answer.status === ANSWER_STATUS.NOMATCH && noAnswerCallback) {
+        await noAnswerCallback(message)
+        return
+      }
+      const msg = answer.msg
+      const correctMessage = msg[0]
+
+      const reply = correctMessage.content.replace(/LINE_BREAK/g, '\n')
+
+      log.info(reply)
+
       if (from && room && await message.mentionSelf()) {
-        await room.say(answer, from)
+        await room.say(reply, from)
       } else {
-        await message.say(answer)
+        await message.say(reply)
       }
 
     })
@@ -142,4 +148,4 @@ function WechatyQnAMaker (config: WechatyQnAMakerConfig): WechatyPlugin {
   }
 }
 
-export { WechatyQnAMaker }
+export { WechatyWeixinOpenAI }
