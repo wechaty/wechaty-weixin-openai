@@ -12,6 +12,7 @@ import {
   WeixinOpenAI,
   ANSWER_STATUS,
   AIBotRequestResponse,
+  SentimentData,
 }                           from './openai'
 
 const DEFAULT_MIN_SCORE = 70
@@ -26,7 +27,6 @@ export interface WechatyWeixinOpenAIConfig {
   mention?         : boolean,
   language?        : matchers.LanguageMatcherOptions,
   skipMessage?     : matchers.MessageMatcherOptions,
-  minScore?        : number,
 
   /**
    * Authentication related arguments
@@ -39,12 +39,14 @@ export interface WechatyWeixinOpenAIConfig {
    * TODO: implement the argument logic below
    */
   includeNlpResult?: boolean,
+  minScore?        : number,
+  includeSentiment?: boolean,
 
   /**
    * Hook functions below allows you to interfere with the conversation with your own logic
    */
   noAnswerHook?    : (message: Message) => Promise<void>,
-  preAnswerHook?   : (message: Message, answer: AIBotRequestResponse) => Promise<boolean | void>,
+  preAnswerHook?   : (message: Message, answer: AIBotRequestResponse, sentiment?: SentimentData) => Promise<boolean | void>,
 }
 
 function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin {
@@ -147,7 +149,11 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
        * PreAnswerHook logic, if the hook return false, will skip further process of the message
        */
       if (typeof config.preAnswerHook === 'function') {
-        const shouldProceed = await config.preAnswerHook(message, answer)
+        let sentimentData: SentimentData | undefined
+        if (config.includeSentiment) {
+          sentimentData = await WeixinOpenAI.Instance.sentiment(text, from.id)
+        }
+        const shouldProceed = await config.preAnswerHook(message, answer, sentimentData)
         if (typeof shouldProceed === 'boolean' && !shouldProceed) {
           return
         }

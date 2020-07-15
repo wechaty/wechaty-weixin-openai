@@ -76,6 +76,10 @@ wechaty.use(WeixinOpenAIPlugin)
 1. `config.noAnswerHook`: This is an optional argument, if this function is defined, when Weixin OpenAI returns an answer that actually matched nothing, this function will be called, which allows you to do other logic when the Weixin OpenAI bot can not answer the question automatically for you, such as push your own contact card or create a room with the bot and you together.
 1. `config.preAnswerHook`: This hook function is called before the real answer action is taken. In this hook function, you can get the message and the answer returned from Weixin OpenAI. You can add your own logic to determine whether this message should be answered by Weixin OpenAI automatically or not. Returning `false` in the hook function will prevent further code to be executed.
 
+### 5 NLP related functions
+
+1. `config.includeSentiment`: This will decide whether you want to append sentiment data analyzed by Weixin OpenAI into the `preAnswerHook` function.
+
 ## Environment Variables
 
 The following two environment variables will be used if the required information is not provided by the config.

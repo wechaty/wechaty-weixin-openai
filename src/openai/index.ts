@@ -2,12 +2,13 @@ import jwt        from 'jsonwebtoken'
 import axios      from 'axios'
 import { log }    from 'wechaty'
 
-import { AI_BOT_URL }     from './const'
+import { AI_BOT_URL, SENTIMENT_URL }     from './const'
 import {
   AIBotRequestBody,
   AIBotRequestResponse,
   ANSWER_STATUS,
 }                         from './schema/aibot'
+import { SENTIMENT_MODE, SentimentResponse, SENTIMENT_KEY_MAP, SentimentData } from './schema/sentiment'
 
 /**
  * This is a singleton class
@@ -67,6 +68,24 @@ class WeixinOpenAI {
     return result as AIBotRequestResponse
   }
 
+  public async sentiment (query: string, userId: string, mode = SENTIMENT_MODE.THREE_CLASS) {
+    const originalUrl = SENTIMENT_URL
+    const tokenData = this.encodeJwt({
+      data: {
+        mode,
+        q: query,
+      },
+      uid: userId,
+    })
+    const result: SentimentResponse = await this.request(originalUrl, {
+      query: tokenData,
+    })
+    return result.result.reduce<SentimentData>((prev, cur) => {
+      const key = SENTIMENT_KEY_MAP[cur[0]]
+      return { ...prev, [key]: cur[1] }
+    }, {})
+  }
+
   private async request (
     originalUrl: string,
     data: any,
@@ -93,4 +112,5 @@ export {
   ANSWER_STATUS,
   AIBotRequestBody,
   AIBotRequestResponse,
+  SentimentData,
 }

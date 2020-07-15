@@ -6,4 +6,5 @@ export {
 
 export {
   AIBotRequestResponse,
+  SentimentData,
 }                           from './openai'
