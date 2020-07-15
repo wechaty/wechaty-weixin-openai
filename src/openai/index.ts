@@ -68,7 +68,7 @@ class WeixinOpenAI {
     return result as AIBotRequestResponse
   }
 
-  public async sentiment (query: string, userId: string, mode = SENTIMENT_MODE.THREE_CLASS) {
+  public async sentiment (query: string, userId: string, mode = SENTIMENT_MODE.SIX_CLASS) {
     const originalUrl = SENTIMENT_URL
     const tokenData = this.encodeJwt({
       data: {
