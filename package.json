@@ -1,6 +1,6 @@
 {
   "name": "wechaty-weixin-openai",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Weixin OpenAI Plugin for Wechaty",
   "directories": {
     "doc": "docs",
