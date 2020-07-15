@@ -17,11 +17,11 @@ test('It should call the endpoint and get the response correctly', async t => {
 test('It should call the sentiment api and get the response correctly', async t => {
   WeixinOpenAI.init(TEST_TOKEN, TEST_ENCODING_AES_KEY)
   const result = await WeixinOpenAI.Instance.sentiment('你有病吧', 'test-user')
-  t.assert(Object.keys(result).length === 3)
+  t.assert(Object.keys(result).length === 6)
 })
 
 test('It should call the sentiment api with six class and get the right response', async t => {
   WeixinOpenAI.init(TEST_TOKEN, TEST_ENCODING_AES_KEY)
-  const result = await WeixinOpenAI.Instance.sentiment('你有病吧', 'test-user', SENTIMENT_MODE.SIX_CLASS)
-  t.assert(Object.keys(result).length === 6)
+  const result = await WeixinOpenAI.Instance.sentiment('你有病吧', 'test-user', SENTIMENT_MODE.THREE_CLASS)
+  t.assert(Object.keys(result).length === 3)
 })
