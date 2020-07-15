@@ -19,7 +19,7 @@ const PRE = 'WechatyWeixinOpenAI'
 export interface WechatyWeixinOpenAIConfig {
   contact?         : matchers.ContactMatcherOptions,
   room?            : matchers.RoomMatcherOptions,
-  at?              : boolean,
+  mention?         : boolean,
   language?        : matchers.LanguageMatcherOptions,
   skipMessage?     : matchers.MessageMatcherOptions,
   minScore?        : number,
