@@ -63,11 +63,11 @@ const config = {
    * Will be called before the answer really replied by the bot
    * In the hook function, the answer that going to be answered
    * and sentiment data will be passed into the function
-   * 
+   *
    * If the function returns false, this function will block
    * further process of the message. With this, you can get the
    * answer from the Weixin OpenAI and decide you want to use
-   * it with your own logic 
+   * it with your own logic
    */
   preAnswerHook: (
     message: Message,
