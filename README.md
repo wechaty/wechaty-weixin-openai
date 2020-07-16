@@ -30,8 +30,12 @@ Wechaty Weixin OpenAI Plugin helps you to answer questions in WeChat with the po
 ## Usage
 
 ```ts
-import { Message, Wechaty } from 'wechaty'
-import { WechatyWeixinOpenAI } from 'wechaty-weixin-openai'
+import { Message, Wechaty }  from 'wechaty'
+import {
+  WechatyWeixinOpenAI,
+  AIBotRequestResponse,
+  SentimentData
+}                            from 'wechaty-weixin-openai'
 
 const config = {
   mention: true, // default true: require at the bot in room.
@@ -45,9 +49,33 @@ const config = {
   encodingAESKey: 'very-secret-encoding-key',
 
   /**
+   * Decide whether the `preAnswerHook` function have the
+   * `sentiment` argument passed.
+   */
+  includeSentiment: true,
+
+  /**
    * No answer from Weixin OpenAI will call the below callback function
    */
   noAnswerHook: (message: Message) => { console.log(`No Answer Message: ${message}`) }
+
+  /**
+   * Will be called before the answer really replied by the bot
+   * In the hook function, the answer that going to be answered
+   * and sentiment data will be passed into the function
+   * 
+   * If the function returns false, this function will block
+   * further process of the message. With this, you can get the
+   * answer from the Weixin OpenAI and decide you want to use
+   * it with your own logic 
+   */
+  preAnswerHook: (
+    message: Message,
+    answer: AIBotRequestResponse,
+    sentiment?: SentimentData,
+  ) => {
+    console.log(`PreAnswerHook() with message: ${message}, answer: ${answer} and sentiment: ${sentiment}`)
+  }
 }
 
 const WeixinOpenAIPlugin = WechatyWeixinOpenAI(config)
