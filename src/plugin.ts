@@ -166,7 +166,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
       const msg = answer.msg
       const correctMessage = msg[0]
 
-      const reply = correctMessage.content.replace(/LINE_BREAK/g, '\n')
+      const reply = correctMessage.content ? correctMessage.content.replace(/LINE_BREAK/g, '\n') : ''
 
       if (from && room && await message.mentionSelf()) {
         await room.say(reply, from)
