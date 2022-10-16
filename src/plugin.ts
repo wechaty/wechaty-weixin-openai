@@ -3,6 +3,7 @@ import {
   WechatyPlugin,
   log,
   Message,
+  types as WechatyTypes
 }                   from 'wechaty'
 import { matchers } from 'wechaty-plugin-contrib'
 
@@ -82,7 +83,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
 
   const isPluginMessage = async (message: Message): Promise<boolean> => {
     if (message.self())                       { return false }
-    if (message.type() !== Message.Type.Text) { return false }
+    if (message.type() !== WechatyTypes.Message.Text) { return false }
 
     const mentionList = await message.mentionList()
     if (mentionList.length > 0) {
@@ -93,7 +94,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
   }
 
   const isConfigMessage = async (message: Message): Promise<boolean> => {
-    const from = message.from()
+    const from = message.talker()
     const room = message.room()
 
     if (await matchSkipMessage(message))                  { return false }
@@ -140,7 +141,7 @@ function WechatyWeixinOpenAI (config: WechatyWeixinOpenAIConfig): WechatyPlugin 
       const text = await message.mentionText()
       if (!text) { return }
 
-      const from = message.from()
+      const from = message.talker()
       const room = message.room()
 
       const answer = await WeixinOpenAI.Instance.aiBot(text, from.id)
